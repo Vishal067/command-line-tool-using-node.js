@@ -137,10 +137,27 @@ function pathToBinary(cmd) {
     process.stdout.write(`${currentPath}:~$ `);
   });
 }
-// ctrl + c to kill the current process
+
+
+// ctrl + c to kill the pathToBinary process
 process.on("SIGINT", () => {
+  console.log(" ");
+  process.stdout.write(`${currentPath}:~$ `);
+});
+
+
+// ctrl + d to exit the shell
+process.on("SIGTERM", () => {
+  console.log(" ");
   process.exit();
 });
+
+// ctrl + z to stop the current process
+process.on("SIGTSTP", () => {
+  console.log(" ");
+  process.exit();
+});
+
 
 function run(cmd) {
   if (cmd.indexOf("ls") === 0) {
